@@ -100,6 +100,14 @@ El script `mysql_master/init.sql` se ejecutará automáticamente al crear la bas
 
 ### 3. Acceder a la Aplicación
 
+### 2. Iniciar todos los servicios con Docker Compose
+
+Desde el directorio  `frontend`, ejecuta:
+
+```bash
+npm run start
+```
+
 Una vez que todos los contenedores estén en funcionamiento:
 
 *   Abre tu navegador y ve a `http://localhost:3000` para interactuar con la aplicación de E-commerce.
