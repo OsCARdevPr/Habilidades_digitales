@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  mysql_master:
+    container_name: mysql_master
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mi_base_de_datos
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mysql_master/data:/var/lib/mysql
+      - ./mysql_master/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql_master/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+    restart: always
+
+  mysql_slave:
+    container_name: mysql_slave
+    image: mysql:8.0
+    ports:
+      - "3307:3306" # Expose slave on a different host port
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mi_base_de_datos # Should be same as master for replication
+      MYSQL_USER: user # Optional: can be different, but simpler if same for app
+      MYSQL_PASSWORD: password # Optional
+    volumes:
+      - ./mysql_slave/data:/var/lib/mysql
+      - ./mysql_slave/my.cnf:/etc/mysql/my.cnf
+    depends_on:
+      - mysql_master
+    networks:
+      - app-network
+    restart: always
+    command: >
+      bash -c "
+        echo 'Waiting for master to be ready...';
+        until mysqladmin ping -h mysql_master -u root -prootpassword --silent; do
+          echo 'Master not yet available, sleeping...';
+          sleep 5;
+        done;
+        echo 'Master is ready.';
+        MASTER_STATUS_OUTPUT=$(mysql -h mysql_master -u root -prootpassword --skip-column-names -e 'SHOW MASTER STATUS;');
+        MASTER_LOG_FILE=$(echo "$MASTER_STATUS_OUTPUT" | awk '{print $1}');
+        MASTER_LOG_POS=$(echo "$MASTER_STATUS_OUTPUT" | awk '{print $2}');
+        echo \\"Master Log File: $MASTER_LOG_FILE, Master Log Pos: $MASTER_LOG_POS\\";
+        mysql -u root -prootpassword -e \\"
+          CHANGE MASTER TO
+          MASTER_HOST='mysql_master',
+          MASTER_USER='replicator',
+          MASTER_PASSWORD='replicatorpassword',
+          MASTER_LOG_FILE='$MASTER_LOG_FILE',
+          MASTER_LOG_POS=$MASTER_LOG_POS,
+          GET_MASTER_PUBLIC_KEY=1;
+          START SLAVE;\\" &&
+        echo 'Slave configuration complete. Starting mysqld...' &&
+        exec mysqld --server-id=2 --log-bin=mysql-slave-bin --relay-log=mysql-slave-relay-bin --read-only=1
+      "
+
+  node_server:
+    container_name: node_server
+    build:
+      context: ./node_server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql_master # Initially connect to master
+      - mysql_slave
+    environment:
+      DB_HOST_MASTER: mysql_master
+      DB_HOST_SLAVE: mysql_slave
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: mi_base_de_datos
+      DB_PORT: 3306 # MySQL default port inside the network
+      NODE_ENV: development
+    volumes:
+      - ./node_server:/usr/src/app # Mount the node_server directory
+      - /usr/src/app/node_modules # Avoids overwriting node_modules by local ones
+    networks:
+      - app-network
+    restart: on-failure
+
+  # Basic Nginx proxy - can be made more sophisticated
+  proxy:
+    container_name: app_proxy
+    image: nginx:latest
+    ports:
+      - "8080:80" # Expose proxy on port 8080
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - node_server
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_master_data:
+  mysql_slave_data:

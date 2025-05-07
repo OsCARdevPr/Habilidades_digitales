@@ -1,0 +1,21 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "Node.js server with Sequelize for MySQL contingency plan",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.32.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
