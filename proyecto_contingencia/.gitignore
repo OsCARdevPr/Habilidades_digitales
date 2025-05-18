@@ -12,8 +12,6 @@ logs/
 
 # Archivos de compilación y empaquetado del frontend
 frontend/build/
-frontend/dist/
-frontend/.DS_Store
 
 # Archivos de entorno (¡No subir credenciales!)
 .env
