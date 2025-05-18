@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS mi_base_de_datos;
-USE mi_base_de_datos;
+CREATE DATABASE IF NOT EXISTS habilidades_digitales;
+USE habilidades_digitales;
 
 -- Drop the old items table if it exists
 DROP TABLE IF EXISTS items;

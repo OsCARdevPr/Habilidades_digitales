@@ -8,7 +8,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mi_base_de_datos
+      MYSQL_DATABASE: habilidades_digitales
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
@@ -26,7 +26,7 @@ services:
       - "3307:3306" # Expose slave on a different host port
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mi_base_de_datos # Should be same as master for replication
+      MYSQL_DATABASE: habilidades_digitales # Should be same as master for replication
       MYSQL_USER: user # Optional: can be different, but simpler if same for app
       MYSQL_PASSWORD: password # Optional
     volumes:
@@ -68,16 +68,16 @@ services:
       context: ./node_server
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "4900:4900"
     depends_on:
       - mysql_master # Initially connect to master
       - mysql_slave
     environment:
       DB_HOST_MASTER: mysql_master
       DB_HOST_SLAVE: mysql_slave
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: mi_base_de_datos
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_NAME: habilidades_digitales
       DB_PORT: 3306 # MySQL default port inside the network
       NODE_ENV: development
     volumes:
