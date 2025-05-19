@@ -16,7 +16,7 @@ const corsOptions = {
     // Permitir solicitudes sin origen (como aplicaciones móviles o solicitudes curl)
     if (!origin) return callback(null, true);
     // Definir los orígenes permitidos
-    const allowedOrigins = ['http://localhost:8080', 'http://localhost:3001']; // Puerto del proxy Nginx y puerto común de desarrollo del frontend. Ajusta el puerto 3001 si es necesario.
+    const allowedOrigins = ['http://localhost:8080', 'http://localhost:5173']; // Puerto del proxy Nginx y puerto común de desarrollo del frontend. Ajusta el puerto 3001 si es necesario.
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'La política CORS para este sitio no permite el acceso desde el Origen especificado.';
       return callback(new Error(msg), false);
