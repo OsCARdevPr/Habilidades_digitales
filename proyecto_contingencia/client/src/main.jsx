@@ -12,6 +12,7 @@ import HomePage from './pages/home.jsx'
 import LoginPage from './pages/login.jsx'
 import CarritoPage from './pages/orders.jsx'
 import './index.css'
+import './app.css'
 
 const rootRoute = createRootRoute({
   component: () => (

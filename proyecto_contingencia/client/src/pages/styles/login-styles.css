@@ -1,0 +1,315 @@
+/* Estilos generales */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(to bottom right, #f5f3ff, #e0f2fe);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Contenedor de la tarjeta */
+.login-card-wrapper {
+  width: 100%;
+  max-width: 28rem;
+}
+
+/* Tarjeta de login */
+.login-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Encabezado con gradiente */
+.login-header {
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.login-header h1 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+}
+
+/* Contenedor del formulario */
+.login-form-container {
+  padding: 2rem;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Grupos de formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Etiquetas */
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Contenedor de input con icono */
+.input-container {
+  position: relative;
+}
+
+/* Icono dentro del input */
+.input-icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  pointer-events: none;
+}
+
+.input-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #9ca3af;
+}
+
+/* Inputs */
+.input-container input {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.input-container input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #a855f7;
+}
+
+/* Encabezado de contraseña con enlace de olvidé */
+.password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.forgot-password {
+  font-size: 0.875rem;
+  color: #a855f7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password:hover {
+  color: #7e22ce;
+}
+
+/* Checkbox recordarme */
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  height: 1rem;
+  width: 1rem;
+  color: #a855f7;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.remember-me label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+/* Botón de login */
+.login-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.login-button:hover {
+  background: linear-gradient(to right, #9333ea, #db2777);
+}
+
+.login-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #a855f7;
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner de carga */
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+.spinner-circle {
+  opacity: 0.25;
+}
+
+.spinner-path {
+  opacity: 0.75;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Divisor "O continúa con" */
+.social-login {
+  margin-top: 1.5rem;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.divider span {
+  position: relative;
+  padding: 0 0.5rem;
+  background-color: white;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+/* Botones sociales */
+.social-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.social-button {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.social-button:hover {
+  background-color: #f9fafb;
+}
+
+.social-button svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Enlace de registro */
+.register-link {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.register-link p {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.register-link a {
+  font-weight: 500;
+  color: #a855f7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.register-link a:hover {
+  color: #7e22ce;
+}
+
+/* Footer */
+.footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .login-form-container {
+    padding: 1.5rem;
+  }
+
+  .social-buttons {
+    grid-template-columns: 1fr;
+  }
+}
