@@ -4,17 +4,6 @@ import { mapMethod } from '../utils/MapMethod'
 
 const RESOURCE = 'products'
 
-const mapMethod = (method) => {
-  switch (method) {
-    case 'C': return 'POST'
-    case 'R': return 'GET'
-    case 'U': return 'PUT'
-    case 'D': return 'DELETE'
-    case 'P': return 'PATCH'
-    default: throw new Error('Método no válido')
-  }
-}
-
 /**
  * Crear un nuevo producto.
  * POST /products

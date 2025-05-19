@@ -5,17 +5,6 @@ import { mapMethod } from '../utils/MapMethod'
 const RESOURCE = 'items'
 const HEALTH = 'db-host'
 
-const mapMethod = (method) => {
-  switch (method) {
-    case 'C': return 'POST'
-    case 'R': return 'GET'
-    case 'U': return 'PUT'
-    case 'D': return 'DELETE'
-    case 'P': return 'PATCH'
-    default: throw new Error('Método no válido')
-  }
-}
-
 /**
  * Obtener el host de base de datos actual.
  * GET /db-host
